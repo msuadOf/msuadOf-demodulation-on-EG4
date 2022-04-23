@@ -1,0 +1,7 @@
+set_pin_assignment	{ clk }	{ LOCATION = R7;IOSTANDARD = LVCMOS33; PULLTYPE = NONE; }
+set_pin_assignment	{ rst }	{ LOCATION = A14;IOSTANDARD = LVCMOS33; }
+set_pin_assignment	{ spi_msi001_data_out }	{ LOCATION = M12;IOSTANDARD = LVCMOS33; }
+set_pin_assignment	{ spi_msi001_clk_out }	{ LOCATION = M10;IOSTANDARD = LVCMOS33; }
+set_pin_assignment	{ spi_msi001_en_out }	{ LOCATION = P12;IOSTANDARD = LVCMOS33; }
+set_pin_assignment	{ clk_debug }	{ LOCATION = P9;IOSTANDARD = LVCMOS33; }
+
