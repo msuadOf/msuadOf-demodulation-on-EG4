@@ -4,7 +4,7 @@ module top (
     output wire spi_msi001_data_out,
     output wire spi_msi001_clk_out,
     output wire spi_msi001_en_out,    
-	output wire clk_debug
+	output wire debug
 );
 wire spi_clk;
 wire [5:0] empty;
@@ -22,11 +22,12 @@ pll pll1(
 msi001_spi msi001(
     .clk(spi_clk),
     .reset(rst),
-    .spi_msi001_data_in(24'b1010_1010_1010_1010_1010_1010),
+    .spi_msi001_data_in(24'b1110_1011_1010_1110_1010_1011),
     .spi_msi001_data_out(spi_msi001_data_out),
     .spi_msi001_clk_out(spi_msi001_clk_out),
-    .spi_msi001_en_out(spi_msi001_en_out)    
+    .spi_msi001_en_out(spi_msi001_en_out) ,    
+	.debug(debug)   
 );        
-assign clk_debug=spi_clk;
+
 
 endmodule //top

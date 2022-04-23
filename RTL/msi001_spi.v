@@ -49,7 +49,8 @@ module msi001_spi (
     input [23:0] spi_msi001_data_in,
     output reg spi_msi001_data_out,
     output reg spi_msi001_clk_out,
-    output reg spi_msi001_en_out
+    output reg spi_msi001_en_out,    
+	output wire debug
 );
 wire clk_div_4;//2.5Mhz clk
 division_4 div_4(
@@ -59,7 +60,8 @@ division_4 div_4(
 
 reg [5:0] count;
 //reg [4:0] count_bit;
-always @(posedge clk_div_4 or reset)
+//assign debug=count[1];
+always @(posedge clk_div_4)
 begin
     if(reset)
         begin
@@ -99,24 +101,32 @@ begin
                 end
             50:
                 begin
-                    spi_msi001_data_out<= spi_msi001_data_in[23- (count[5:1]-1) ];
+                    spi_msi001_data_out<= spi_msi001_data_in[0];
                     spi_msi001_en_out<= 1'b0;
                     spi_msi001_clk_out<= 1'b0;
                     count <= count + 6'b1;
                 end
             51,52,53://EN拉高，锁存数据
             begin
-                    spi_msi001_data_out<= spi_msi001_data_in[23- (count[5:1]-1) ];
+                    spi_msi001_data_out<= spi_msi001_data_in[0];
                     spi_msi001_en_out<= 1'b1;
                     spi_msi001_clk_out<= 1'b0;
                     count <= count + 6'b1;
             end
             54:
             begin
-                count<=6'b0;
+                spi_msi001_data_out<= spi_msi001_data_in[0];
+                    spi_msi001_en_out<= 1'b1;
+                    spi_msi001_clk_out<= 1'b0;
+                    count <= count + 6'b1;
             end                
-default:            
-count<=6'b0;
+			default:              
+begin               
+					spi_msi001_data_out<= spi_msi001_data_in[0];
+                    spi_msi001_en_out<= 1'b1;
+                    spi_msi001_clk_out<= 1'b0;       
+					count<=6'b0;                    
+end
         endcase
 end
 endmodule //msi001_spi
